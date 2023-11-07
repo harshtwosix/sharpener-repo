@@ -1,32 +1,59 @@
-//QuerySelector
+let itemlist=document.querySelector("#items");
 
-let seconditem=document.querySelector('.list-group-item:nth-child(2)');
-seconditem.style.color="green";
+//parentnode
+console.log(itemlist.parentNode);
 
-let thirditem=document.querySelector('.list-group-item:nth-child(3)');
-thirditem.style.color="transparent";
+//parentElement
+console.log(itemlist.parentElement);
 
-//QuerySelectorALL
+//childNode
+console.log(itemlist.childNodes);
+
+//firstChild
+console.log(itemlist.firstChild);
+
+//firstElementChild
+console.log(itemlist.firstElementChild);
+
+//lastElementChild
+console.log(itemlist.lastElementChild);
+
+//nextSibling
+console.log(itemlist.nextSibling);
+
+//nextElementSibling
+console.log(itemlist.nextElementSibling);
+
+//previousSibling
+console.log(itemlist.previousSibling);
+
+//previousElementSibling
+console.log(itemlist.previousElementSibling);
+
+//create Element
+
+//create a div
+let newDiv=document.createElement('div');
+
+//add class
+newDiv.className="hello";
+
+//add id
+newDiv.id="hello1";
+
+//create text node
+let newDivText=document.createTextNode("Hello World");
+
+//add text to Div
+newDiv.appendChild(newDivText);
+
+let changeheader=document.querySelector("#header-title");
+
+let newtext=document.createTextNode("HEllo World Item Lister");
+changeheader.appendChild(newtext);
+console.log(changeheader);
 
 
-
-let odd=document.querySelectorAll('li:nth-child(odd)');
-
-for(let i=0;i<odd.length;i++){
-
-    odd[i].style.color="green";
-
-}
-
-let even=document.querySelectorAll('li:nth-child(even)');
-
-for(let i=0;i<even.length;i++){
-
-if(i==0){
-    even[i].style.color="red";
-}
-
-}
 
 
 
