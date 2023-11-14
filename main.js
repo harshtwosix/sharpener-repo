@@ -46,3 +46,29 @@ function removeItem(e){
     }
   }
 }
+
+
+//FILTER
+
+let filter=document.getElementById('filter');
+
+//filter element
+filter.addEventListener('keyup',filteritems);
+
+//function to filter
+function filteritems (e){
+        //convert text to lowercase
+        let text=e.target.value.toLowerCase();
+        let items=document.getElementsByTagName('li');
+
+        Array.from(items).forEach(function(item){
+            let itemName = item.firstChild.textContent;
+            if(itemName.toLowerCase().indexOf(text) != -1){
+              item.style.display = 'block';
+            }else if(itemName.toLowerCase().indexOf(discription) != -1){
+                item.style.display = 'block';
+            } else {
+              item.style.display = 'none';
+            }
+        })
+}
