@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E commerce app</title>
+
+</head>
+
+<body>
+    <div id="container">
+        <h1>E Commerce App</h1>
+        <form id="cartValue">
+            <label for="price" id="price">Price:</label>
+            <input type="number" id="pricevalue" required>
+            <label for="item" id="item">Item Name:</label>
+            <input type="text" id="itemname" required>
+            <label for="category" id="category">Category:</label>
+            <select id="category">
+                <option id="none">select</option>
+                <option id="electronics">electronics</option>
+                <option id="food">food</option>
+                <option id="clothing">clothing</option>
+            </select>
+            <button type="submit" onclick="addCartItem()">Submit</button>
+        </form>
+        <div id="cartDisplay"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.4/axios.min.js"></script>
+    <script>
+        const cartitem = document.getElementById('cartValue');
+        const itemdisplay = document.getElementById('cartDisplay');
+
+        function addCartItem() {
+            const itemprice = document.getElementById('pricevalue');
+            const itemname = document.getElementById('itemname');
+            const itemcategory = $('#category'.val());
+
+            const price = itemprice.value;
+            const name = itemname.value;
+            const category = itemcategory.value;
+
+            const additem = additem(price, name);
+
+            itemprice.value = '';
+            itemname.value = '';
+            itemcategory.value = '';
+        }
+
+        function additem(price, name) {
+            let itemdetail = {
+                "price of item": price,
+                "name of item": name,
+                "category of item": category
+            }
+            axios.post("https://crudcrud.com/api/8a938c521cd94271bdef598140dda030/itemslist", itemdetail)
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }
+    </script>
+</body>
+
+</html>
