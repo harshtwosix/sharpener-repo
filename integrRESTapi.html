@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecart</title>
+</head>
+
+<body>
+    <h1>Ecart</h1>
+    <div id="shoppingform">
+        <label for="price">PRICE:</label>
+        <input type="number" id="price" placeholder="enter price">
+        <label for="name">ITEMNAME:</label>
+        <input type="text" id="name" placeholder="enter item name">
+        <button type="submit" id="submit">Submit</button>
+    </div>
+    <div id="cartitem"></div>
+    <p id="amout"></p>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const Price = document.querySelector('#price');
+        const Name = document.querySelector('#name');
+        const Submit = document.querySelector('#submit');
+
+        Submit.addEventListener('click', uploadonCRUD)
+
+        function uploadonCRUD() {
+            const PriceValue = Price.value;
+            const NameValue = Name.value;
+            axios.post('https://crudcrud.com/api/b396c1b7269642ae8b2fc3f11bdb4166/CartData', {
+                "Name": NameValue,
+                "Price": PriceValue
+            })
+                .then(res => window.location.reload())
+                .catch(err => console.log(err))
+        }
+
+        function ShowOnDashboard(res) {
+            const display = document.querySelector('#cartitem')
+            for (let i = 0; i < res.length; i++) {
+                const deleteButton = document.createElement('button')
+                deleteButton.innerHTML = 'delete'
+                deleteButton.addEventListener('click', () => Deletefunction(res[i]._id))
+                const card = document.createElement('div')
+                card.innerHTML = `Name: ${res[i].Name} Price: ${res[i].Price}`
+                card.appendChild(deleteButton)
+                display.appendChild(card)
+            }
+
+        }
+
+        function Deletefunction(id) {
+            axios.get(`https://crudcrud.com/api/b396c1b7269642ae8b2fc3f11bdb4166/CartData/${id}`)
+                .then((res) => {
+                    axios.delete(`https://crudcrud.com/api/b396c1b7269642ae8b2fc3f11bdb4166/CartData/${id}`)
+                        .then(res => window.location.reload())
+                        .catch(err => console.log(err))
+
+                })
+
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            axios.get('https://crudcrud.com/api/b396c1b7269642ae8b2fc3f11bdb4166/CartData')
+                .then((res) => {
+                    let amountCalculation = 0;
+                    for (let j = 0; j < res.data.length; j++) {
+                        amountCalculation += parseInt(res.data[j].Price)
+                    }
+                    const Amount = document.querySelector('#amout')
+                    Amount.innerHTML = `<strong>Total cart Value: </strong>${amountCalculation}`
+                    ShowOnDashboard(res.data)
+
+                })
+        })
+
+    </script>
+</body>
+
+</html>
