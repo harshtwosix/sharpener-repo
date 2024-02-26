@@ -1,12 +1,30 @@
-function ExpenseItem(){
-    return (<div>
-    <h2>Added Expense!</h2>
-    <h3>Food Rs 10</h3>
-    <h3>Petrol Rs 100</h3>
-    <h3>Movies Rs 200</h3>
-    </div>
-   
-    )
+import ExpenseDetails from './ExpenseDetails';
+import './ExpenseItem.css';
+import ExpensePrice from './ExpensePrice';
+import ExpenseTime from './Expensetime';
+import React, { useState } from 'react';
+ 
+
+function ExpenseItem(props){
+    
+    const [amount,setAmount]=useState(props.amount)
+
+
+    const clickHandler=()=>{
+        setAmount('100');
+    }
+    return (
+        <div className='expense-item'>
+           <ExpenseTime date={props.date}></ExpenseTime>
+            <div className='expense-item__description'>
+               <ExpenseDetails title={props.title}></ExpenseDetails>
+                <div className='expense-item__price'><ExpensePrice amount={amount}></ExpensePrice></div>
+                <button onClick={clickHandler}>click</button>
+            </div>
+        </div>
+    
+    );
 }
+
 
 export default ExpenseItem
